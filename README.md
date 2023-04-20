@@ -1,0 +1,1 @@
+[![Python Version](https://img.shields.io/badge/Python-3.10.2%20-blue)](https://www.python.org/)
