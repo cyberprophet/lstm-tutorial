@@ -4,4 +4,4 @@ import dotenv
 
 dotenv.load_dotenv()
 
-base_url=os.getenv('BASE')
+base_url = os.getenv('BASE')
