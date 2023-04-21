@@ -1,5 +1,3 @@
-from sklearn.preprocessing import MinMaxScaler
-
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -8,7 +6,13 @@ import requests
 import dotenv
 import os
 
-print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+
+def MinMaxScaler(data):
+    numerator = data - np.min(data, 0)
+    denominator = np.max(data, 0) - np.min(data, 0)
+
+    return numerator / (denominator + 1e-9)
+
 
 dotenv.load_dotenv()
 
@@ -26,15 +30,13 @@ df = pd.json_normalize(res.json()['chart'])
 
 dfx = df[['current', 'high', 'low', 'start', 'volume']]
 
+dfx = MinMaxScaler(dfx)
 
-scaler = MinMaxScaler()
-dfx = scaler.fit_transform(dfx)
+dfy = dfx[['current']]
+dfx = dfx[['high', 'low', 'start', 'volume']]
 
-dfy = dfx[:, 0].reshape(-1, 1)
-dfx = dfx[:, 1:]
-
-x = dfx.tolist()
-y = dfy.tolist()
+x = dfx.values.tolist()
+y = dfy.values.tolist()
 
 window_size = 10
 
