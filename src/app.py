@@ -85,3 +85,5 @@ plt.title('SEC stock price prediction')
 plt.xlabel('time')
 plt.ylabel('stock price')
 plt.legend()
+
+plt.savefig(f'/mnt/g/Blog/{code}.png')
